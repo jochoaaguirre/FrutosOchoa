@@ -7,6 +7,7 @@ import Tienda from './pages/Tienda';
 import Contacto from './pages/Contacto';
 import Nosotros from './pages/Nosotros';
 import Carrito from './pages/Carrito';
+import Opiniones from './pages/Opiniones'; // 1. IMPORTACIÓN AÑADIDA
 import './App.css';
 
 function App() {
@@ -22,17 +23,16 @@ function App() {
             Frutos Ochoa
           </div>
 
-          {/* Botón de hamburguesa */}
           <div className="menu-toggle" onClick={() => setMenuAbierto(!menuAbierto)}>
             {menuAbierto ? <FaTimes size={24} /> : <FaBars size={24} />}
           </div>
 
-          {/* Menú de links - Se añade la clase 'active' cuando menuAbierto es true */}
           <div className={`links ${menuAbierto ? 'active' : ''}`}>
             <Link to="/" onClick={cerrarMenu}>Inicio</Link>
             <Link to="/nosotros" onClick={cerrarMenu}>Quiénes Somos</Link>
             <Link to="/tienda" onClick={cerrarMenu}>Tienda</Link>
             <Link to="/contacto" onClick={cerrarMenu}>Contacto</Link>
+            <Link to="/opiniones" onClick={cerrarMenu}>Opiniones</Link> {/* 2. LINK AÑADIDO */}
           </div>
         </nav>
 
@@ -43,6 +43,7 @@ function App() {
             <Route path="/tienda" element={<Tienda />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/carrito" element={<Carrito />} />
+            <Route path="/opiniones" element={<Opiniones />} /> {/* 3. RUTA AÑADIDA */}
           </Routes>
         </main>
 
