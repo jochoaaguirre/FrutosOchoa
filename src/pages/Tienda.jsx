@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FaStar, FaShoppingCart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
+import { supabase } from '../supabaseClient'; // Importa el cliente que creaste
 
 export default function Tienda() {
   const [productos, setProductos] = useState([]);
@@ -12,19 +13,28 @@ export default function Tienda() {
   // Calcula el total de artículos en el carrito para mostrar en el botón
   const cantidadArticulos = carrito.reduce((total, item) => total + item.cantidad, 0);
 
-  useEffect(() => {
-    const fetchProductos = async () => {
-      try {
-        const respuesta = await axios.get('https://api.npoint.io/f335415bfa75d1ceadb3/productos');
-        setProductos(respuesta.data);
-      } catch (error) {
-        console.error("Error al cargar el catálogo:", error);
-      } finally {
-        setCargando(false);
-      }
-    };
-    fetchProductos();
-  }, []);
+ 
+
+useEffect(() => {
+  const fetchProductos = async () => {
+    try {
+      // Usamos el cliente de Supabase en lugar de axios
+      const { data, error } = await supabase
+        .from('productos') // El nombre exacto de tu tabla en Supabase
+        .select('*');     // Traer todas las columnas
+
+      if (error) throw error; // Si hay error, lo atrapa el catch
+
+      setProductos(data);
+    } catch (error) {
+      console.error("Error al cargar el catálogo desde Supabase:", error.message);
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  fetchProductos();
+}, []);
 
   if (cargando) return <div>Cargando productos de la tienda...</div>;
 
