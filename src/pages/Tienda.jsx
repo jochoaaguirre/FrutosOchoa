@@ -15,7 +15,7 @@ export default function Tienda() {
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const respuesta = await axios.get('http://localhost:3001/productos');
+        const respuesta = await axios.get('https://api.npoint.io/f335415bfa75d1ceadb3');
         setProductos(respuesta.data);
       } catch (error) {
         console.error("Error al cargar el catálogo:", error);
