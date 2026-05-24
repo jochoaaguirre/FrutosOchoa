@@ -19,7 +19,7 @@ export default function Home() {
 
   // Petición asíncrona para traer las Preguntas Frecuentes del servidor simulado
   useEffect(() => {
-    axios.get('https://api.npoint.io/f335415bfa75d1ceadb3')
+    axios.get('https://api.npoint.io/f335415bfa75d1ceadb3/faq')
       .then(res => setFaqs(res.data))
       .catch(err => console.error("Error cargando FAQs:", err));
   }, []);

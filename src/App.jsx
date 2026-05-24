@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaWhatsapp, FaBars, FaTimes } from 'react-icons/fa';
 import { CartProvider } from './context/CartContext';
 import Home from './pages/Home';
 import Tienda from './pages/Tienda';
@@ -9,6 +10,9 @@ import Carrito from './pages/Carrito';
 import './App.css';
 
 function App() {
+  const [menuAbierto, setMenuAbierto] = useState(false);
+  const cerrarMenu = () => setMenuAbierto(false);
+
   return (
     <CartProvider>
       <Router>
@@ -17,11 +21,18 @@ function App() {
             <img src="/img/logo.png" alt="Logo Frutos Ochoa" />
             Frutos Ochoa
           </div>
-          <div className="links">
-            <Link to="/">Inicio</Link>
-            <Link to="/nosotros">Quiénes Somos</Link>
-            <Link to="/tienda">Tienda</Link>
-            <Link to="/contacto">Contacto</Link>
+
+          {/* Botón de hamburguesa */}
+          <div className="menu-toggle" onClick={() => setMenuAbierto(!menuAbierto)}>
+            {menuAbierto ? <FaTimes size={24} /> : <FaBars size={24} />}
+          </div>
+
+          {/* Menú de links - Se añade la clase 'active' cuando menuAbierto es true */}
+          <div className={`links ${menuAbierto ? 'active' : ''}`}>
+            <Link to="/" onClick={cerrarMenu}>Inicio</Link>
+            <Link to="/nosotros" onClick={cerrarMenu}>Quiénes Somos</Link>
+            <Link to="/tienda" onClick={cerrarMenu}>Tienda</Link>
+            <Link to="/contacto" onClick={cerrarMenu}>Contacto</Link>
           </div>
         </nav>
 
