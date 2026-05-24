@@ -46,7 +46,7 @@ export default function Tienda() {
               className="btn-agregar" 
               onClick={() => {
                 agregarAlCarrito(prod);
-                alert(`Agregaste: ${prod.nombre}`);
+                alert(`Agregaste: ${prod.nombre}. Puedes revisar tu carrito al final de la pagina para proceder al pago.`);
               }}
             >
               Agregar al carrito
